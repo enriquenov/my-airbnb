@@ -1,20 +1,20 @@
-import * as yup from "yup";
-import * as bcrypt from "bcryptjs";
+import * as yup from 'yup';
+import * as bcrypt from 'bcryptjs';
+import { registerPasswordValidation } from '@my-airbnb/common';
 
-import { ResolverMap } from "../../../types/graphql-utils";
-import { forgotPasswordLockAccount } from "../../../utils/forgotPasswordLockAccount";
-import { createForgotPasswordLink } from "../../../utils/createForgotPasswordLink";
-import { User } from "../../../entity/User";
-import { userNotFoundError, expiredKeyError } from "./errorMessages";
-import { forgotPasswordPrefix } from "../../../constants";
-import { registerPasswordValidation } from "../../../yupSchemas";
-import { formatYupError } from "../../../utils/formatYupError";
+import { ResolverMap } from '../../../types/graphql-utils';
+import { forgotPasswordLockAccount } from '../../../utils/forgotPasswordLockAccount';
+import { createForgotPasswordLink } from '../../../utils/createForgotPasswordLink';
+import { User } from '../../../entity/User';
+import { userNotFoundError, expiredKeyError } from './errorMessages';
+import { forgotPasswordPrefix } from '../../../constants';
+import { formatYupError } from '../../../utils/formatYupError';
 
 // 20 minutes
 // lock account
 
 const schema = yup.object().shape({
-  newPassword: registerPasswordValidation
+  newPassword: registerPasswordValidation,
 });
 
 export const resolvers: ResolverMap = {
@@ -28,15 +28,15 @@ export const resolvers: ResolverMap = {
       if (!user) {
         return [
           {
-            path: "email",
-            message: userNotFoundError
-          }
+            path: 'email',
+            message: userNotFoundError,
+          },
         ];
       }
 
       await forgotPasswordLockAccount(user.id, redis);
       // @todo add frontend url
-      await createForgotPasswordLink("", user.id, redis);
+      await createForgotPasswordLink('', user.id, redis);
       // @todo send email with url
       return true;
     },
@@ -51,9 +51,9 @@ export const resolvers: ResolverMap = {
       if (!userId) {
         return [
           {
-            path: "key",
-            message: expiredKeyError
-          }
+            path: 'key',
+            message: expiredKeyError,
+          },
         ];
       }
 
@@ -69,7 +69,7 @@ export const resolvers: ResolverMap = {
         { id: userId },
         {
           forgotPasswordLocked: false,
-          password: hashedPassword
+          password: hashedPassword,
         }
       );
 
@@ -78,6 +78,6 @@ export const resolvers: ResolverMap = {
       await Promise.all([updatePromise, deleteKeyPromise]);
 
       return null;
-    }
-  }
+    },
+  },
 };

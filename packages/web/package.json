@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "@my-airbnb/web",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -20,7 +20,8 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "^3.0.0",
     "typescript": "3.4.5",
-    "yup": "^0.27.0"
+    "yup": "^0.27.0",
+    "@my-airbnb/common": "1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
