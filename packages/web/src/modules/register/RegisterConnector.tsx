@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { RegisterController } from '@my-airbnb/controller';
 import { RegisterView } from './view/RegisterView';
 
 // container -> view (presentational)
@@ -6,12 +7,11 @@ import { RegisterView } from './view/RegisterView';
 // controller -> connector -> view
 
 export class RegisterConnector extends React.PureComponent {
-  dummySubmit = async (values: any) => {
-    console.log(values);
-    return null;
-  };
-
   render() {
-    return <RegisterView submit={this.dummySubmit} />;
+    return (
+      <RegisterController>
+        {({ submit }) => <RegisterView submit={submit} />}
+      </RegisterController>
+    );
   }
 }
