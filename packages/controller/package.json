@@ -6,16 +6,19 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf ./dist && tsc",
-    "codegen": "apollo codegen:generate --queries=./src/**/*.tsx --target typescript --outputFlat ./src/schemaTypes.ts "
+    "schema:download": "apollo service:download ./schema.json --endpoint http://localhost:4000/",
+    "generate": "graphql-codegen"
   },
   "dependencies": {
-    "graphql": "^14.2.1",
+    "graphql": "^14.3.0",
     "graphql-tag": "^2.10.1",
     "react": "^16.8.6",
     "react-apollo": "^2.5.5",
     "react-dom": "^16.8.6"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.1.3",
+    "@graphql-codegen/typescript": "^1.1.3",
     "@types/node": "^12.0.0",
     "@types/react": "^16.8.16",
     "@types/react-dom": "^16.8.4",
